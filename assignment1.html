@@ -56,9 +56,9 @@ void setup() {
 // function executed after setup repeatedly
 void loop() {
   delay(period); // delays for given timeframe
-  digitalWrite(13, HIGH); // turn the pin on
+  digitalWrite(13, HIGH); // turn pin 13 on
   delay(period); // delays for given timeframe
-  digitalWrite(13, LOW); // turn the pin off
+  digitalWrite(13, LOW); // turn pin 13 off
   // loops pins from highest to lowest (r, y, g, b, & w)
   for (int pin = 13; pin > 8; pin--) {
      digitalWrite(pin, HIGH); // turn the pin on
