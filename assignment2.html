@@ -1,25 +1,207 @@
-<!DOCTYPE html> 
-<html> 
-    <head> 
-        <meta charset="utf-8"> 
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
-        <title>Example Student's HCDE 439 Physical Computing Page!</title> 
+        <title>Amanda Zhu's HCDE 439 Physical Computing Page!</title>
 
         <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
 
-    </head> 
-    <body> 
+    </head>
+    <body>
 
         <div class="header">
-            <h1>Example Student's Assignment 2!</h1>
-            <p>
-            <img src="red-panda.jpg" width=400></a>
-            </p>
+            <h1>Amanda's Assignment 2!</h1>
             <p>
             Here is all the documentation for assignment 2!
             </p>
-        </div>
-        
-    </body>
+            <p>
+            <img src="A2_Circuit.jpg" width=400></a>
+            </p>
+            <p>
+              This is the Arduino circuit consisting of one multi-coloured <br/>
+              LED one white LED, and one button.
+            </p>
+            <br></br>
+            <p>
+            <img src="A2_GIF.gif" width=400></a>
+            <p>
+              This is the circuit in action. The white LED flashes once<br/ >
+              symbolizing the start of the sequence. Then, the red <br/ >
+              becomes brighter and fades out. The white LED flashes twice, <br/ >
+              symbolizing the change to green. The green becomes brighter <br/ >
+              and fades out. The white LED now flashes three times, sig- <br/ >
+              naling the change to blue. The blue becomes brighter and <br/ >
+              fades out. The white LED flashes once, symbolizing the end.
+            </p>
+            <br></br>
+            <p>
+            <img src="A2_Schematic_Calculations.png" width=550></a>
+          </p>
+          <p>
+            These are the schematic and resistance calculations. 100 and <br/ >
+            220 ohm resistors were chosen since they were the closest to <br/ >
+            the respective resistances (85 and 160 ohms). For the switch, <br/ >
+            any resistor above 250 ohms could have been used and a 10K <br/ >
+            ohms resistor was chosen to act as a pull-down resistor.
+          </p>
+          <br></br>
+          <code><pre>
+// HCDE 439, A2: Fade!
+// Nadya Peek, WIN2020
+
+// constant for Red part connected to pin 11
+const int R = 11;
+// constant for Green part connected to pin 10
+const int G = 10;
+// constant for Blue part connected to pin 9
+const int B = 9;
+// constant for button connected to pin 8
+const int buttonPin = 8;
+// constant for White LED connected to pin 7
+const int W = 7;
+
+// variable for button state; initalized at 0
+int buttonState = 0;
+// function called when file starts
+void setup() {
+  // initalizes R pin as output
+  pinMode(R, OUTPUT);
+  // initalizes G pin as output
+  pinMode(G, OUTPUT);
+  // initalizes B pin as output
+  pinMode(B, OUTPUT);
+  // initalizes button pin as input
+  pinMode(buttonPin, INPUT);
+  // initalizes W pin as output
+  pinMode(W, OUTPUT);
+}
+
+// function executed after setup; repeatedly
+void loop() {
+  // reads the state of the button pin
+  buttonState = digitalRead(buttonPin);
+  // executes if button state is high (pressed)
+  if(buttonState == HIGH) {
+    // turns White LED on
+    digitalWrite(W, HIGH);
+    // delays for 500 miliseconds
+    delay(500);
+    // turns White LED off
+    digitalWrite(W, LOW);
+    // delays for 500 miliseconds
+    delay(500);
+    // increases brightness of Red part (0 to 255)
+    for(int i = 0; i < 256; i++) {
+      // increases value of Red part by 1
+      analogWrite(R, i);
+      // delays for 15 miliseconds
+      delay(15);
+    }
+    // decreases brightness of Red part (255 to 0)
+    for(int i = 255; i >= 0; i--) {
+      // decreases value of Red part by 1
+      analogWrite(R, i);
+      // delays for 10 miliseconds
+      delay(10);
+    }
+    // delays for 200 miliseconds
+    delay(200);
+    // turns White LED on
+    digitalWrite(W, HIGH);
+    // delays for 200 miliseconds
+    delay(200);
+    // turns White LED off
+    digitalWrite(W, LOW);
+    // delays for 200 miliseconds
+    delay(200);
+    // turns White LED on
+    digitalWrite(W, HIGH);
+    // delays for 200 miliseconds
+    delay(200);
+    // turns white LED off
+    digitalWrite(W, LOW);
+    // increases brightness of the Green part (0 to 255)
+    for(int i = 0; i < 256; i++) {
+      // increases value of Green part by 1
+      analogWrite(G, i);
+      // delays for 15 miliseconds
+      delay(15);
+    }
+    // decreases brightness of the Green part (0 to 255)
+    for(int i = 255; i >= 0; i--) {
+      // decreases value of Green part by 1
+      analogWrite(G, i);
+      // delays for 10 miliseconds
+      delay(10);
+    }
+    // delays for 200 miliseconds
+    delay(200);
+    // turns White LED on
+    digitalWrite(W, HIGH);
+    // delays for 200 miliseconds
+    delay(200);
+    // turns White LED off
+    digitalWrite(W, LOW);
+    // delays for 200 miliseconds
+    delay(200);
+    // turns White LED on
+    digitalWrite(W, HIGH);
+    // delays for 200 miliseconds
+    delay(200);
+    // turns white LED off
+    digitalWrite(W, LOW);
+    // delays for 200 miliseconds
+    delay(200);
+    // turns White LED on
+    digitalWrite(W, HIGH);
+    // delays for 200 miliseconds
+    delay(200);
+    // turns white LED off
+    digitalWrite(W, LOW);
+    // increases brightness of the Blue part (0 to 255)
+    for(int i = 0; i < 256; i++) {
+      // increases value of Blue part by 1
+      analogWrite(B, i);
+      // delays for 15 miliseconds
+      delay(15);
+    }
+    // decreases brightness of the Blue part (0 to 255)
+    for(int i = 255; i > 0; i--) {
+      // decreases value of Blue part by 1
+      analogWrite(B, i);
+      // delays for 10 miliseconds
+      delay(10);
+    }
+    // delays for 800 miliseconds
+    delay(800);
+    // turns White LED on
+    digitalWrite(W, HIGH);
+    // delays for 500 miliseconds
+    delay(500);
+    // turns White LED off
+    digitalWrite(W, LOW);
+    // delays for 500 miliseconds
+    delay(500);
+  // executes if button state is low (not pressed)
+  } else {
+    // turns Red part off
+    digitalWrite(R, LOW);
+    // turns Green part off
+    digitalWrite(G, LOW);
+    // turns Blue part off
+    digitalWrite(B, LOW);
+    // turns White LED off
+    digitalWrite(W, LOW);
+  }
+}
+        </pre></code>
+      <p>
+        This is the code snippet
+        </p>
+        <br></br>
+      </div>
+
+  </body>
 </html>
