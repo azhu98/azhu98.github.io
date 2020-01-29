@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+        <title>Amanda Zhu's HCDE 439 Physical Computing Page!</title>
+
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body>
+
+        <div class="header">
+            <h1>Amanda's Assignment 3!</h1>
+            <p>
+            Here is all the documentation for assignment 3!
+            </p>
+            <p>
+            <img src="A3_Circuit.png" width=400></a>
+            </p>
+            <p>
+              This is the Arduino circuit consisting of a white and blue<br/ >
+              LED and a photocell sensor.
+            </p>
+            <br></br>
+            <p>
+            <img src="A3_GIF.gif" width=400></a>
+            </p>
+            <p>
+              This is the circuit in action. It conceptually depicts day<br/ >
+              and night. The white LED represents brightness, as the<br/ >
+              night falls, The blue LED lights up and gradually dims as<br/ >
+              the night deepenss. The photocell component tracks the <br/ >
+              brightness level. Sample outputs from the operation are<br/ >
+              shown below.
+            </p>
+            <p>
+            <img src="A3_SampleOutput.png" width=400></a>
+            <img src="A3_Output_GIF.gif" width=400></a>
+            </p>
+            <br></br>
+            <p>
+            <img src="A3_Schematic_Calculations.png" width=550></a>
+          </p>
+          <p>
+            These are the schematic and resistance calculations. 100 ohms <br/ >
+            resistors were chosen since they were the closest to the 85<br/ >
+            ohms resistances for the blue and white LEDs. For the photocell <br/ >
+            sensor, any resistor above 250 ohms could have been used and a 10K <br/ >
+            ohms resistor was chosen to act as a pull-down resistor. Sample<br/>
+            calculations at the voltage dividers are demonstrated below the <br/>
+            resistor calculations.
+          </p>
+          <br></br>
+          <code><pre>
+// analog pin for blue LED
+const int BLUE = 10;
+// analog pin for white LED
+const int WHITE = 9;
+// pin for photocell sensor
+const int PHOTOCELL = A0;
+
+// function called when file starts
+void setup(void) {
+  // initiates Serial monitor at 9600 baud
+  Serial.begin(9600);
+  // initiates white LED pin as output
+  pinMode(WHITE, OUTPUT);
+  // initiates blue LED pin as output
+  pinMode(BLUE, OUTPUT);
+  // initiates photocell pin (A0) as input
+  pinMode(PHOTOCELL, INPUT);
+}
+
+// function executed after setup; repeatedly
+void loop(void) {
+  // sets sensorValue as value from photocell pin
+  int sensorValue = analogRead(PHOTOCELL);
+  // converts sensorValue (0 to 1023)
+  // into ledValue (0 to 255)
+  // dark to bright
+  int ledValue = map(sensorValue, 0, 1023, 0, 255);
+  // prints phrase as a line in serial monitor
+  Serial.println("ledValue: ");
+  // prints integer as a line in serial monitor
+  Serial.println(ledValue);
+  // changes white LED duty cycle to given value
+  analogWrite(WHITE, ledValue);
+  // executes if ledValue is bigger or equal to 200
+  // ie. bright
+  if (ledValue >= 200) {
+    // prints phrase as a line in serial monitor
+    Serial.println("It's getting bright! Turning blue LED off");
+    // turns blue LED off
+    analogWrite(BLUE, 0);
+  // executed if ledValue is less than 200
+  // ie. not bright
+  } else {
+    // prints phrase as a line in serial monitor
+    Serial.println("It's getting dark! Turning blue LED on");
+    // turns blue LED on
+    analogWrite(BLUE, ledValue);
+  }
+  // delays for 100 miliseconds
+  delay(100);
+}
+          </pre></code>
+      <p>
+        This is the code snippet
+        </p>
+        <br></br>
+      </div>
+
+  </body>
+</html>
