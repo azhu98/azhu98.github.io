@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+        <title>Amanda Zhu's HCDE 439 Physical Computing Page!</title>
+
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body>
+
+        <div class="header">
+            <h1>Amanda's Assignment 4!</h1>
+            <p>
+            Here is all the documentation for assignment 4!
+            </p>
+            <p>
+            <img src="A4_Circuit.jpeg" width=660></a>
+            </p>
+            <p>
+              This is the Arduino circuit consisting of two green LEDs, <br/ >
+              a infared system (remote & sensor), a transsitor, and a <br/ >
+              300 LEDs long light strip.
+            </p>
+            <br></br>
+            <p>
+            <img src="A4_GIF.gif" width=660></a>
+            </p>
+            <p>
+              This is the circuit in action. The light strip is <br/ >
+              controlled by the remote. Pressing 0 turns the light strip, <br/ >
+              off, pressing 1 turns the light on, pressing 2 turns the <br/ >
+              light strip brighter. The green LEDs symbolize the state of <br/ >
+              the light strip. With both off representing the off state <br/ >
+              one on representing the "dimmer" state, and two representing <br/ >
+              the brighter state.
+            </p>
+            <br></br>
+            <p>
+            <img src="A4_Schematic_Calculations.png" width=550></a>
+          </p>
+          <p>
+            These are the schematic and resistance calculations. 100 ohms <br/ >
+            resistors were chosen since they were the closest to the 85 <br/ >
+            ohms resistances for the blue and white LEDs. For the photocell <br/ >
+            sensor, any resistor above 250 ohms could have been used and a 10K <br/ >
+            ohms resistor was chosen to act as a pull-down resistor. Sample <br/>
+            calculations at the voltage dividers are demonstrated below the <br/>
+            resistor calculations. If I shine a light source directly on the <br/ >
+            sensor, the resistance of the photocell could be around 15k ohms; <br/ >
+            if my lights are off and it is dark outside, the resistance of the <br/ >
+            photocell sensor could be around 180k ohms.
+          </p>
+          <br></br>
+          <code><pre>
+// imports the IR remote library
+#include <IRremote.h>
+
+// constant for the infared sensor pin
+const int IR_PIN = 7;
+// creates the receiver object called irvalue
+IRrecv irvalue(IR_PIN);
+// creates a variable to store the sensor results
+decode_results results;
+// analog pin for LED strip
+int lightStripPin = 9;
+// pin for first green LED
+int ledPinOne = 10;
+// pin for second green LED
+int ledPinTwo = 11;
+
+// function called when file starts
+void setup() {
+  // initates Serial Monitor at 9600 baud
+  // (for trouble shooting)
+  Serial.begin(9600);
+  // begins the receviing process
+  irvalue.enableIRIn();
+  // enables LED blinking when receving
+  // (for trouble shooting)
+  irvalue.blink13(true);
+  // initiates light strip pin as output
+  pinMode(lightStripPin, OUTPUT);
+  // initiates first green LED as output
+  pinMode(ledPinOne, OUTPUT);
+  // initiates second green LED as output
+  pinMode(ledPinTwo, OUTPUT);
+}
+
+// function executed after setup; repeatedly
+void loop() {
+  // executes if IR code is received (returns true)
+  // and code will be stored in results;
+  // use of switch (case) was inspired by
+  // http://www.circuitbasics.com/arduino-ir-remote-receiver-tutorial/
+  // otherwise, will return false
+  if (irvalue.decode(&results)){
+    // prints the IR code as HEX
+    // (for trouble shooting)
+    Serial.println(results.value, HEX);
+    // turns strip on (bright) and green LEDs
+    // on if HEX for button "2" is received
+    switch(results.value){
+      // HEX for button "2"
+      case 0xFF18E7:
+        // changes light strip duty cycle to 100
+        // (ie. bright)
+        analogWrite(lightStripPin, 100);
+        // turns the first green LED on
+        digitalWrite(ledPinOne, HIGH);
+        // turns the second green LED on
+        digitalWrite(ledPinTwo, HIGH);
+        // ends/exits current case
+        break;
+    }
+    // turns strip on (dimmer) and first green LED
+    // on if HEX for button "1" is received
+    switch(results.value){
+      // HEX for button "1"
+      case 0xFF30CF:
+        // changes light strip duty cycle to 20
+        // (ie. dim)
+        analogWrite(lightStripPin, 20);
+        // turns first green LED on
+        digitalWrite(ledPinOne, HIGH);
+        // turns second green LED off
+        digitalWrite(ledPinTwo, LOW);
+        // ends/exits current case
+        break;
+    }
+    // turns strip off and first green LEDs off
+    // if HEX for button "0" is received
+    switch(results.value){
+      // HEX for button "0"
+      case 0xFF6897:
+      // turns light strip off
+        analogWrite(lightStripPin, 0);
+        // turns first green LED off
+        digitalWrite(ledPinOne, LOW);
+        // turns second green LED off
+        digitalWrite(ledPinTwo, LOW);
+        // ends/exits current case
+        break;
+    }
+    // resets the receiver in preparation for
+    // receiving another code
+    irvalue.resume();
+   }
+}
+          </pre></code>
+      <p>
+        This is the code snippet
+        </p>
+        <br></br>
+      </div>
+
+  </body>
+</html>
