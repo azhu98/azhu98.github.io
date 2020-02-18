@@ -78,9 +78,9 @@ int ledPinTwo = 11;
 void setup() {
   // initates Serial Monitor at 9600 baud (for trouble shooting)
   Serial.begin(9600);
-  // begins the receviing process
+  // begins the receiving process
   irvalue.enableIRIn();
-  // enables LED blinking when receving
+  // enables LED blinking when receiving
   // (for trouble shooting)
   irvalue.blink13(true);
   // initiates light strip pin as output
@@ -94,7 +94,7 @@ void setup() {
 // function executed after setup; repeatedly
 void loop() {
   // executes if IR code is received (returns true) and code will be stored
-  // in results; otherwise, will return false
+  // in "results"; otherwise, will return false
   // use of switch (case) was inspired by
   // http://www.circuitbasics.com/arduino-ir-remote-receiver-tutorial/
   if (irvalue.decode(&results)){
@@ -145,8 +145,7 @@ void loop() {
         // ends/exits current case
         break;
     }
-    // resets the receiver in preparation for
-    // receiving another code
+    // resets the receiver in preparation for receiving another code
     irvalue.resume();
    }
 }
