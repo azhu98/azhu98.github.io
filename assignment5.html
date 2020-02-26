@@ -40,10 +40,10 @@
             </p>
             <p>
             These are the schematic and calculations. <br/ >
-            For the button, any resistor above 250 ohms could be used. I decided to use a 10k ohms resistor to act as a <br/ >
-            pull-down resistor. For the photocell, I assumed the "worst" case scenario, where there is no voltage output <br/ >
-            at the gate and calculated the resistance for it to be 25 ohms. I decided to use a 10k ohms resistor to act <br/ >
-            as a pull-down resistor. <br/ >
+            For the button, any resistor higher than 250 ohms could be used. I decided to use a 10k ohms resistor to act  <br/ >
+            as a pull-down resistor. For the photocell, I assumed the "worst" case scenario, where there is no voltage <br/ >
+            output at the gate and calculated the resistance for it to be 25 ohms. Any resistor higher than 25 ohms could <br/ >
+            be used and I decided to use a 10k ohms resistor to act as a pull-down resistor. 
           </p>
           <br></br>
           <code><pre>
@@ -81,7 +81,7 @@ void loop() {
 }
           </pre></code>
       <p>
-        This is the code snippet for the Arduino. It takes the values from the sensors and outputs them to the Serial Monitor
+        This is the code snippet for the Arduino. It takes values from the sensors and outputs them to the Serial Monitor.
       </p>
         <br></br>
         <code><pre>
@@ -92,7 +92,7 @@ void loop() {
 var serial; 
 //rename to the name of your port
 var portName = 'COM3' 
-// variable for button state (0 or 1; not or pressed)
+// variable for button state (0 or 1; not pressed or pressed)
 var buttonState;
 // variable for light sensor values
 var sensorValue;
@@ -167,7 +167,7 @@ function serialEvent() {
       buttonState = datastring.substring(0, 1);
       // for trouble shooting; prints button state to console
       console.log(buttonState);
-      // sets sensor value as the extraction from index two to end
+      // sets sensor value as the extraction from index two to the end
       sensorValue = datastring.substring(2);
       // for trouble shooting; prints sensor value to console
       console.log(sensorValue);
