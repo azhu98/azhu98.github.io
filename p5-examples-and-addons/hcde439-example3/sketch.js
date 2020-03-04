@@ -1,5 +1,5 @@
 var serial; // variable to hold an instance of the serialport library
-var portName = '/dev/ttyACM0' //rename to the name of your port
+var portName = 'COM3' //rename to the name of your port
 var inData;
 
 
@@ -45,13 +45,13 @@ function portClose() {
 function serialEvent() {
     if (serial.available()) {
 	inData = serial.read();
-	console.log("got back " + inData); 
+	console.log("got back " + inData);
     }
 }
 
 function keyPressed() {
-    //console.log("writing key");
-    serial.write(key);
+    console.log("writing key");
+    serial.write('h');
 }
 
 function draw() {
