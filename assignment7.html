@@ -255,15 +255,15 @@ void loop() {
         This is the code snippet for the Arduino. It starts by importing a temperature & humidity </br >
         sensor library, which you can download and install via the second commented link in the beginning, </br >
         sets appropriate pins for the distance sensor, temperature & humidity sensor, and LED, and </br >
-        declare variables. It then sets up the LED and trig pins as outputs, echo pin as input, and initiates </br >
+        declare variables. It then sets up the LED and trig pins as outputs, echo pin as an input, and initiates </br >
         Serial monitor. Within the loop, it first initiated the distance sensor, reads and calculate the </br >
         detected distance. If the distance sensed is lower than 20 cms, then the temperature sensor senses </br >
         the temperature in celsius and returns the value to the Arduino as an input. If this value is </br >
         > 24 (LEDs = Red); if value is [24, 18) (LEDs = Orange); if value is [18, 16) (LEDs = Purple); </br >
-        if values is <= 16 (LEDs = Blue); if distance becomes more than 20 cms, turn all LEDs off.
+        if values is <= 16 (LEDs = Blue); if distance becomes more than 20 cms, all LEDs are turned off.
       </p>
       <p>
-        Note: I would suggest by connecting the system to the Arduino first before connecting it to a 9V battery,</br >
+        Note: I would suggest by connecting the system to the laptop first before connecting it to a 9V battery,</br >
         This code will output the values to the Serial monitor, allowing you to identify any potential issues. </br >
       </p>
       <br></br>
